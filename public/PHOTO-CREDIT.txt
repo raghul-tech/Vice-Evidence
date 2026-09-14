@@ -9,3 +9,8 @@ cases/
   poster-wallpaper.jpg
   trainblast.jpg
 
+img/
+  homepage.png
+  incident.png
+  crop-edit.png
+  casefile.png
