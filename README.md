@@ -65,18 +65,15 @@ Boot Menu ──► Loading Screen ──► Evidence Locker ──► Case Brie
 
 <!-- PLACEHOLDERS: Replace the image paths below with your screenshots/GIFs -->
 
-### Walkthrough GIF
-![Walkthrough GIF](https://placehold.co/1000x500/100e17/00e5ff?text=Drop+Walkthrough+GIF+Here)
-
 ### Screenshots
 
 | Boot Menu | Evidence Locker |
 | :---: | :---: |
-| ![Boot Menu](https://placehold.co/600x380/100e17/ff3870?text=Boot+Menu+Screenshot) | ![Evidence Locker](https://placehold.co/600x380/100e17/ff3870?text=Evidence+Locker+Screenshot) |
+| ![Boot Menu](public/img/homepage.png) | ![Evidence Locker](public/img/incident.png) |
 
 | Crop Desk (Unlayer Editor) | Case File Dossier |
 | :---: | :---: |
-| ![Crop Desk](https://placehold.co/600x380/100e17/ff3870?text=Unlayer+Editor+Screenshot) | ![Case File](https://placehold.co/600x380/100e17/ff3870?text=Case+File+Dossier+Screenshot) |
+| ![Crop Desk](public/img/crop-edit.png) | ![Case File](public/img/casefile.png) |
 
 ---
 
