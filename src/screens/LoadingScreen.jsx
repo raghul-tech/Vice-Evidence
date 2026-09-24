@@ -33,19 +33,19 @@ export default function LoadingScreen({ visible }) {
     // Image crossfade timer (cycles max 3 images smoothly every 1000ms)
     const shotInterval = window.setInterval(() => {
       setShot((n) => (n + 1) % SHOTS.length);
-    }, 1000);
+    }, 800);
 
     // Smooth continuous progress bar animation using requestAnimationFrame
     const duration = 2200; // matches loading cinematic time
     const updateProgress = (now) => {
       const elapsed = now - startTimeRef.current;
       const progress = Math.min(100, (elapsed / duration) * 100);
-      
+
       // Smooth cubic-bezier curve easing for realistic game load progress
-      const eased = progress < 50 
+      const eased = progress < 50
         ? 2 * Math.pow(progress / 100, 2) * 100
         : (1 - Math.pow(-2 * (progress / 100) + 2, 2) / 2) * 100;
-        
+
       setPct(Math.min(99.9, Math.max(progress * 0.98, eased)));
 
       if (elapsed < duration) {

@@ -68,7 +68,7 @@ export default function CaseFile({
           Print case file
         </button>
         <button type="button" className="ghost" onClick={onAddCrop}>
-          Crop another still
+          Scope another still
         </button>
         <button type="button" className="ghost" onClick={onAddStill}>
           Attach a new picture

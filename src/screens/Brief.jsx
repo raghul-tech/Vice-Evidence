@@ -17,7 +17,7 @@ export default function Brief({ incident, onCrop, onBack }) {
       </figure>
       <div className="row-actions">
         <button type="button" className="primary" onClick={onCrop}>
-          Open the crop
+          Open the scope
         </button>
         <button type="button" className="ghost" onClick={onBack}>
           Back

@@ -12,8 +12,8 @@ export const INCIDENTS = [
     charge: 'ARMED BANK RAID · WANTED LEVEL MAX',
     radioLines: {
       WANTED: 'APB: the one filling the JPEG walked the vault. Bags first, then the face.',
-      IDENTIFIED: 'Positive ID. Desk 4 cropped the raid down to a gunman. Print the poster.',
-      'POSSIBLE SUSPECT': 'Could be the rifle. Could be the bag. Crop the raid, not the lobby.',
+      IDENTIFIED: 'Positive ID. Desk 4 scoped the raid down to a gunman. Print the poster.',
+      'POSSIBLE SUSPECT': 'Could be the rifle. Could be the bag. Scope the raid, not the lobby.',
       'INSUFFICIENT EVIDENCE': "That's a whole bank mission, Desk 4. Pick the shooter.",
       DENIED: 'You submitted the branch. Do your job.',
     },
@@ -32,7 +32,7 @@ export const INCIDENTS = [
     radioLines: {
       WANTED: 'APB: the man who detonated the freight. Bring a wanted star, not a hose.',
       IDENTIFIED: 'We have a frame. That is legally a confession on this blotter.',
-      'POSSIBLE SUSPECT': 'Too much locomotive. Crop the guy, not the fireball.',
+      'POSSIBLE SUSPECT': 'Too much locomotive. Scope the guy, not the fireball.',
       'INSUFFICIENT EVIDENCE': "That's a whole yard mission. Tighter.",
       DENIED: 'You sent the whole explosion. Try again, Desk 4.',
     },
@@ -44,14 +44,14 @@ export const INCIDENTS = [
     location: 'Bolero Pier · south slips',
     image: '/cases/poster-wallpaper.jpg',
     description:
-      'Getaway still: two shooters, one briefcase, police boat eating wake, chopper inbound. They shot their way off the dock. Crop who pulled first.',
-    officerQuote: 'We do not chase the boat. We crop the trigger finger.',
+      'Getaway still: two shooters, one briefcase, police boat eating wake, chopper inbound. They shot their way off the dock. Scope who pulled first.',
+    officerQuote: 'We do not chase the boat. We Scope the trigger finger.',
     subject: 'GETAWAY PAIR',
     charge: 'ARMED FLIGHT · FELONY BOAT EXIT',
     radioLines: {
       WANTED: 'APB: two in the JPEG, one bag, chopper inbound. Print whoever fills the frame.',
       IDENTIFIED: 'Positive ID: the shooter who still fits. Mayor will love this wanted poster.',
-      'POSSIBLE SUSPECT': 'Could be him. Could be her. Crop harder.',
+      'POSSIBLE SUSPECT': 'Could be him. Could be her. Scope harder.',
       'INSUFFICIENT EVIDENCE': "That's a whole shootout mission, Desk 4. Pick a shooter.",
       DENIED: 'You submitted the whole waterfront. Do your job.',
     },
@@ -68,11 +68,11 @@ export const INCIDENTS = [
     subject: 'BLAST LOOKOUT',
     charge: 'STANDING BY FOR DETONATION',
     radioLines: {
-      WANTED: 'APB: lookout on 12724, duffel, waiting on the blast. Crop him before the skyline cooks.',
+      WANTED: 'APB: lookout on 12724, duffel, waiting on the blast. Scope him before the skyline cooks.',
       IDENTIFIED: 'We got the back of the bomber. Close enough for Costa Luma.',
-      'POSSIBLE SUSPECT': 'Still seeing too much downtown. Crop the lookout, not the view.',
+      'POSSIBLE SUSPECT': 'Still seeing too much downtown. Scope the lookout, not the view.',
       'INSUFFICIENT EVIDENCE': "That's a postcard of a city about to pop, Desk 4. Pick the guy with the bag.",
-      DENIED: 'You sent the whole skyline. The crime is the wait. Crop.',
+      DENIED: 'You sent the whole skyline. The crime is the wait. Scope.',
     },
   },
 ];
@@ -85,15 +85,15 @@ export function customIncident(src, fileName) {
     location: 'Unknown · Costa Luma',
     image: src,
     description: fileName
-      ? `Desk 4 accepted ${fileName}. The department will believe the crop.`
-      : 'Desk 4 accepted a civilian JPEG. The crop is still the arrest.',
+      ? `Desk 4 accepted ${fileName}. The department will believe the Scope.`
+      : 'Desk 4 accepted a civilian JPEG. The Scope is still the arrest.',
     officerQuote: "We don't do witnesses. We do JPEGs.",
     subject: 'UNKNOWN SUBJECT',
     charge: 'CRIMES AGAINST THE JPEG',
     radioLines: {
-      WANTED: 'Unknown subject, known crop. Print it.',
+      WANTED: 'Unknown subject, known Scope. Print it.',
       IDENTIFIED: 'Whatever is in that frame is guilty. Policy.',
-      'POSSIBLE SUSPECT': 'Could be anyone. Crop like you have a favorite.',
+      'POSSIBLE SUSPECT': 'Could be anyone. Scope like you have a favorite.',
       'INSUFFICIENT EVIDENCE': "That's the whole picture, Desk 4.",
       DENIED: 'You submitted the original. Do your job.',
     },
