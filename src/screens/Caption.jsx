@@ -46,7 +46,7 @@ export default function Caption({ incident, pending, onFile, onBack }) {
             Add to case file
           </button>
           <button type="button" className="ghost" onClick={onBack}>
-            Back to crop
+            Back to scope
           </button>
         </div>
       </form>
