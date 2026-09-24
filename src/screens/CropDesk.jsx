@@ -14,7 +14,7 @@ export default function CropDesk({ incident, imageSrc, editorKey, onSave, onCanc
           <h1>Suspect must fill the frame</h1>
         </div>
         <p className="desk-note">
-          This is the whole job. Crop, draw, text, stickers. Save when the guilty party is the picture.
+          This is the whole job. Scope, draw, text, stickers. Save when the guilty party is the picture.
         </p>
       </header>
 
@@ -32,7 +32,7 @@ export default function CropDesk({ incident, imageSrc, editorKey, onSave, onCanc
           options={{
             theme: 'dark',
             features: {
-              imageEditor: { dock: 'left' },
+              imageEditor: { dock: 'right' },
             },
           }}
           onSave={({ dataUrl }) => onSave(dataUrl)}

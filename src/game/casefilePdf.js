@@ -83,7 +83,7 @@ function drawCover(doc, { incident, exhibits, filed, pageW, margin }) {
   doc.setFont('helvetica', 'italic');
   doc.setFontSize(11);
   doc.setTextColor(80, 70, 55);
-  doc.text('Each exhibit is a separate still. The crop is the accusation.', margin, y + 28);
+  doc.text('Each exhibit is a separate still. The scope is the accusation.', margin, y + 28);
 }
 
 async function drawExhibit(doc, { incident, exhibit, index, total, filed, pageW, pageH, margin }) {
