@@ -259,12 +259,22 @@ blockquote {
 .desk-tools { margin: 0 0 12px; }
 .verdict .row-actions { margin-top: 14px; }
 
+/* ==========================================================================
+   GAME THEME - SMOOTH LOADING SCREEN (MAX 3 PICS CROSS-FADE & GAME HUD)
+   ========================================================================== */
 .load-overlay {
   position: fixed;
   inset: 0;
-  z-index: 80;
-  background: #050604;
+  z-index: 1000;
+  background: #06070a;
   overflow: hidden;
+  user-select: none;
+}
+
+.load-shots-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .load-shot {
@@ -273,53 +283,243 @@ blockquote {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: ken 1.5s ease-out both;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 5s ease-out;
+  will-change: opacity, transform;
 }
 
-.load-grade {
+.load-shot.active {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.load-vignette {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.12));
+  background: 
+    radial-gradient(circle at center, transparent 30%, rgba(5, 6, 8, 0.75) 85%, rgba(2, 3, 4, 0.95) 100%),
+    linear-gradient(180deg, rgba(255, 0, 127, 0.1) 0%, transparent 40%, rgba(0, 243, 255, 0.1) 100%);
 }
 
-@keyframes ken {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
+.load-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.28) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.6;
+}
+
+.load-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5vh 6vw 6vh;
+  pointer-events: none;
+}
+
+.load-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.load-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: #ff007f;
+  text-shadow: 0 0 12px rgba(255, 0, 127, 0.6);
+  text-transform: uppercase;
+}
+
+.load-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.load-tip {
+  align-self: flex-start;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  background: rgba(10, 12, 18, 0.85);
+  border-left: 3px solid #00f3ff;
+  padding: 10px 18px;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.load-tip-label {
+  color: #00f3ff;
+  font-weight: 700;
+}
+
+.load-tip-text {
+  color: #f0f4f8;
+}
+
+.load-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.load-bar-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .load-line {
-  position: absolute;
-  left: 8vw;
-  right: 8vw;
-  bottom: 4vh;
-  z-index: 2;
-  height: 3px;
-  background: rgba(196, 216, 46, 0.18);
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
-.load-line span {
-  display: block;
+.load-line-fill {
   height: 100%;
-  background: #c8e04a;
+  background: linear-gradient(90deg, #ff007f 0%, #ffd700 50%, #00f3ff 100%);
+  border-radius: 3px;
   transition: width 0.08s linear;
 }
 
+.load-line-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 0, 127, 0.8), rgba(0, 243, 255, 0.8));
+  filter: blur(4px);
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* ==========================================================================
+   GAME THEME - REACT IMAGE EDITOR (CYBER VICE HUD STYLING)
+   ========================================================================== */
 .desk {
   width: min(1480px, calc(100% - 12px));
   padding-bottom: 28px;
 }
 
-.desk-bar { margin-bottom: 10px; }
+.desk-bar { margin-bottom: 14px; }
 .desk-bar h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
-.desk-note { font-size: 0.95rem; }
+.desk-note { font-size: 0.95rem; color: #a4b3c6; }
 
-.editor-shell {
+.desk-hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  background: rgba(14, 18, 26, 0.9);
+  border: 1px solid rgba(0, 243, 255, 0.35);
+  padding: 5px 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.15);
+}
+
+.hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff007f;
+  box-shadow: 0 0 8px #ff007f;
+  animation: pulse-dot 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-dot {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+.hud-title { color: #00f3ff; font-weight: 600; }
+.hud-sep { color: rgba(255, 255, 255, 0.25); }
+.hud-case { color: #ffd700; }
+
+.game-editor-shell {
+  position: relative;
   padding: 0;
   overflow: hidden;
   min-height: min(78vh, 820px);
   height: min(78vh, 820px);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  border-radius: 6px;
+  background: #090b10;
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 243, 255, 0.12),
+    inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Tactical HUD Corner Reticles */
+.hud-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 30;
+  pointer-events: none;
+  border-color: #00f3ff;
+  border-style: solid;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px #00f3ff);
+}
+.hud-corner.top-left { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+.hud-corner.top-right { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+.hud-corner.bottom-left { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+.hud-corner.bottom-right { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+/* Overrides for Unlayer / Filerobot React Image Editor component elements */
+.game-editor-shell [class*="Filerobot-"],
+.game-editor-shell [class*="pie-"],
+.game-editor-shell [class*="sc-"] {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+/* Canvas background gaming vibe */
+.game-editor-shell canvas,
+.game-editor-shell [class*="CanvasWrap"] {
+  background-color: #0d1117 !important;
+  background-image: 
+    radial-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 0) !important;
+  background-size: 24px 24px !important;
+}
+
+/* Control buttons & header bars */
+.game-editor-shell button {
+  border-radius: 4px !important;
+  transition: all 0.18s ease !important;
+}
+
+.game-editor-shell button:hover {
+  filter: brightness(1.25) !important;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.4) !important;
 }
 
 .error, .busy { color: var(--gold); }

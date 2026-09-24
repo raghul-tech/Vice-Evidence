@@ -1,72 +1,111 @@
 import { useEffect, useRef, useState } from 'react';
 
 const SHOTS = [
-  '/loads/gta-background.jpg',
-  '/loads/gta-background-image.jpg',
-  '/loads/gta-wallpaper-image.jpg',
+  { src: '/loads/gta-background.jpg', tip: 'INITIALIZING VICE EVIDENCE SYSTEM...' },
+  { src: '/loads/gta-background-image.jpg', tip: 'ANALYZING INCIDENT DOSSIER & BLOTTER...' },
+  { src: '/loads/gta-wallpaper-image.jpg', tip: 'LOADING TACTICAL TARGETING & IMAGE TOOLS...' },
 ];
 
-SHOTS.forEach((src) => {
+// Preload images
+SHOTS.forEach((shot) => {
   const img = new Image();
-  img.src = src;
+  img.src = shot.src;
 });
 
 export default function LoadingScreen({ visible }) {
   const [shot, setShot] = useState(0);
   const [pct, setPct] = useState(0);
-  const slowCap = useRef(18);
-  const phase = useRef('slow');
+  const animFrameRef = useRef(null);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     if (!visible) {
       setPct(0);
-      phase.current = 'slow';
+      setShot(0);
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       return undefined;
     }
 
-    slowCap.current = 12 + Math.random() * 18;
-    phase.current = 'slow';
-    setPct(1 + Math.random() * 4);
+    setPct(0);
     setShot(0);
+    startTimeRef.current = performance.now();
 
-    const frames = window.setInterval(() => {
+    // Image crossfade timer (cycles max 3 images smoothly every 1000ms)
+    const shotInterval = window.setInterval(() => {
       setShot((n) => (n + 1) % SHOTS.length);
-    }, 520);
+    }, 1000);
 
-    const bar = window.setInterval(() => {
-      setPct((n) => {
-        if (phase.current === 'slow') {
-          const next = n + 0.12 + Math.random() * 0.28;
-          if (next >= slowCap.current) {
-            phase.current = 'fast';
-            return slowCap.current;
-          }
-          return next;
-        }
-        return Math.min(99, n + 5 + Math.random() * 9);
-      });
-    }, 45);
+    // Smooth continuous progress bar animation using requestAnimationFrame
+    const duration = 2200; // matches loading cinematic time
+    const updateProgress = (now) => {
+      const elapsed = now - startTimeRef.current;
+      const progress = Math.min(100, (elapsed / duration) * 100);
+      
+      // Smooth cubic-bezier curve easing for realistic game load progress
+      const eased = progress < 50 
+        ? 2 * Math.pow(progress / 100, 2) * 100
+        : (1 - Math.pow(-2 * (progress / 100) + 2, 2) / 2) * 100;
+        
+      setPct(Math.min(99.9, Math.max(progress * 0.98, eased)));
+
+      if (elapsed < duration) {
+        animFrameRef.current = requestAnimationFrame(updateProgress);
+      } else {
+        setPct(100);
+      }
+    };
+
+    animFrameRef.current = requestAnimationFrame(updateProgress);
 
     return () => {
-      window.clearInterval(frames);
-      window.clearInterval(bar);
+      window.clearInterval(shotInterval);
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [visible]);
 
   if (!visible) return null;
 
   return (
-    <div className="load-overlay" role="status" aria-live="polite" aria-label="Loading">
-      <img
-        className="load-shot"
-        src={SHOTS[shot]}
-        alt=""
-        onError={() => setShot((n) => (n + 1) % SHOTS.length)}
-      />
-      <div className="load-grade" aria-hidden="true" />
-      <div className="load-line">
-        <span style={{ width: `${pct}%` }} />
+    <div className="load-overlay" role="status" aria-live="polite" aria-label="Loading Vice Evidence">
+      {/* Background shots with smooth CSS cross-fade transition (max 3 pics) */}
+      <div className="load-shots-container">
+        {SHOTS.map((item, idx) => (
+          <img
+            key={item.src}
+            className={`load-shot ${idx === shot ? 'active' : ''}`}
+            src={item.src}
+            alt=""
+          />
+        ))}
+      </div>
+
+      <div className="load-vignette" aria-hidden="true" />
+      <div className="load-scanlines" aria-hidden="true" />
+
+      {/* Game HUD overlay content */}
+      <div className="load-hud">
+        <div className="load-brand">
+          <span className="load-badge">VICE POLICE DEPT</span>
+          <span className="load-title">COSTA LUMA BLOTTER</span>
+        </div>
+
+        <div className="load-tip">
+          <span className="load-tip-label">STATUS // </span>
+          <span className="load-tip-text">{SHOTS[shot].tip}</span>
+        </div>
+
+        <div className="load-bar-wrapper">
+          <div className="load-bar-info">
+            <span className="load-bar-label">SYSTEM LOADING</span>
+            <span className="load-bar-pct">{Math.floor(pct)}%</span>
+          </div>
+          <div className="load-line">
+            <div className="load-line-fill" style={{ width: `${pct}%` }} />
+            <div className="load-line-glow" style={{ width: `${pct}%` }} />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
